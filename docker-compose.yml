@@ -22,6 +22,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      volumes:
+      - mysql-datavolume:/var/lib/mysql
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -40,3 +42,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     volumes_from:
       - "nginx-proxy"
+
+volumes:
+  my-datavolume:
