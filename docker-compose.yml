@@ -2,25 +2,26 @@ version: '2'
 
 services:
   wordpress:
-    image: wordpress:4.7-apache
+    image: wordpress:latest
     environment:
-      WORDPRESS_DB_PASSWORD: ${MYSQL_DATABASE}
-      VIRTUAL_HOST: webcad.com.tr
-      LETSENCRYPT_HOST: webcad.com.tr
-      LETSENCRYPT_EMAIL: info@webcad.com.tr
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-
-  mysql:
-    image: mysql
-    environment:
-      WORDPRESS_DB_HOST: ${CONTAINER_DB_NAME}:3306
+      WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+      VIRTUAL_HOST: webcad.com.tr
+      LETSENCRYPT_HOST: webcad.com.tr
+      LETSENCRYPT_EMAIL: info@webcad.com.tr
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   nginx-proxy:
     image: jwilder/nginx-proxy
