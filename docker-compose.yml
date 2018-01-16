@@ -11,18 +11,7 @@ services:
     volumes:
       - mysql-datavolume:/var/lib/mysql
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "/etc/nginx/vhost.d"
-      - "/usr/share/nginx/html"
-      - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "/etc/nginx/certs"
-
-  wordpress:
+  wp:
     image: wordpress:latest
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -30,18 +19,12 @@ services:
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
-      VIRTUAL_HOST: webcad.com.tr
-      LETSENCRYPT_HOST: webcad.com.tr
-      LETSENCRYPT_EMAIL: info@webcad.com.tr
     depends_on:
       - db
-
-  letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    volumes_from:
-      - "nginx-proxy"
+      - ${WP_CONTENT}:/var/www/html/wp-content
+    ports:
+      - '80:80'
 
 volumes:
   mysql-datavolume:
