@@ -10,6 +10,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-datavolume:/var/lib/mysql
+    restart: unless-stopped
 
   wp:
     image: wordpress:latest
@@ -25,6 +26,7 @@ services:
       - ${WP_CONTENT}:/var/www/html/wp-content
     ports:
       - '80:80'
+    restart: unless-stopped
 
 volumes:
   mysql-datavolume:
