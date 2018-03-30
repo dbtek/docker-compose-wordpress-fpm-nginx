@@ -1,0 +1,1 @@
+docker run -it --rm -p 443:443 -p 80:80 --name certbot --mount src=$(pwd)/certs,target=/etc/letsencrypt,type=bind --mount src=$(pwd)/certs-data,target=/webroot,type=bind certbot/certbot certonly --standalone

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    image: mysql
+    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   wp:
-    image: wordpress:latest
+    image: wordpress:fpm-alpine
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
@@ -24,9 +24,20 @@ services:
       - db
     volumes:
       - ${WP_CONTENT}:/var/www/html/wp-content
+      - wordpress:/var/www/html
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - wordpress:/var/www/html
+      - ./le/certs:/etc/letsencrypt
+      - ./le/data:/data/letsencrypt
     ports:
       - '80:80'
-    restart: unless-stopped
+      - '443:443'
 
 volumes:
   mysql-datavolume:
+  wordpress:
