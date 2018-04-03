@@ -1,3 +1,4 @@
 data/*
 wp-content/*
 le
+.env
