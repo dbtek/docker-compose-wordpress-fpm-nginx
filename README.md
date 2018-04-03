@@ -10,9 +10,9 @@ Run Wordpress through Nginx & PHP FPM effortlessly.
 - Run following.
 
 ```bash
-// generate SSL certificates with letsencrypt
+# generate SSL certificates with letsencrypt
 $ sh ./gencert.sh
-// run services
+# run services
 $ docker-compose up -d
 ```
 
@@ -29,7 +29,7 @@ To add auto renewal a cron job can be set up like following.
 
 ```
 43 6 * * * /path/to/renewcert.sh
-``
+```
 
 ### Folder Structure
 - le/         - Volumes for Letsencrypt certs & files.
