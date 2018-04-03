@@ -6,7 +6,7 @@ Run Wordpress through Nginx & PHP FPM effortlessly.
 
 ### Install
 - Download zip or clone repo. Place files on the host.
-- Update config via `.env` file accordingly.
+- Update config via `.env` file accordingly. **Don't use it as is!**
 - Run following.
 
 ```bash
@@ -36,8 +36,7 @@ To add auto renewal a cron job can be set up like following.
 - nginx/      - Nginx configuration.
 - wp-content/ - Wordpress volume.
 
-
-### Author 
+### Author 
 Ismail Demirbilek - [@dbtek](https://twitter.com/dbtek)
 
 ### License
