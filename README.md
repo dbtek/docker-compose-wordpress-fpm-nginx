@@ -7,6 +7,7 @@ Run Wordpress through Nginx & PHP FPM effortlessly.
 ### Install
 - Download zip or clone repo. Place files on the host.
 - Update config via `.env` file accordingly. **Don't use it as is!**
+- Update certificate domain inside `nginx/wp.conf`.
 - Run following.
 
 ```bash
