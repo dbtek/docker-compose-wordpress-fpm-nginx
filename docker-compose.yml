@@ -40,6 +40,7 @@ services:
       - '443:443'
     depends_on:
       - wp
+    restart: unless-stopped
 
 volumes:
   mysql-datavolume:
